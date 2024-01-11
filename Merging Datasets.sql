@@ -1,3 +1,5 @@
+-- Creating a table tripdata_2022 combining the datasets for the entire year 2022
+
 CREATE TABLE IF NOT EXISTS `tripdata_2022.tripdata_2022` AS (
   SELECT * FROM `tripdata_2022.tripdata_202201`
   UNION ALL
@@ -23,5 +25,7 @@ CREATE TABLE IF NOT EXISTS `tripdata_2022.tripdata_2022` AS (
   UNION ALL
   SELECT * FROM `tripdata_2022.tripdata_202212`
 );
+
+--Checking the number of rows in the combined table
 
 SELECT COUNT(*) FROM `tripdata_2022.tripdata_2022`;
