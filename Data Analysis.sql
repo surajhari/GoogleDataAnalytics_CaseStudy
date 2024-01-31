@@ -1,3 +1,10 @@
+-- Count of trips based on the membership type
+
+select member_casual, count(*) as no_of_trips
+from `tripdata_2022.cleaned_tripdata_2022`
+group  by member_casual
+order by no_of_trips desc;
+
 -- Count of trips based on the available bike types and their respective membership type
 
 select rideable_type, count(*) as no_of_trips
@@ -34,13 +41,6 @@ from `tripdata_2022.cleaned_tripdata_2022`
 group  by month, member_casual
 order by no_of_trips desc;
 
--- Count of trips based on the membership type
-
-select member_casual, count(*) as no_of_trips
-from `tripdata_2022.cleaned_tripdata_2022`
-group  by member_casual
-order by no_of_trips desc;
-
 -- Count of trips based on the hour of the day and their respective membership type
 
 select extract(hour from started_at) as hour_of_day, count(*) as no_of_trips
@@ -53,6 +53,13 @@ from `tripdata_2022.cleaned_tripdata_2022`
 group by hour_of_day, member_casual
 order by no_of_trips desc;
 
+-- Average trip duration based on the membership type
+
+select member_casual, avg(ride_length_mins) as avg_trip_duration_in_mins
+from `tripdata_2022.cleaned_tripdata_2022`
+group by member_casual
+order by avg_trip_duration_in_mins desc;
+
 -- Average trip duration based on the types of bike and their respective membership type
 
 select rideable_type, avg(ride_length_mins) as avg_trip_duration_in_mins
@@ -63,13 +70,6 @@ order by avg_trip_duration_in_mins desc;
 select rideable_type, member_casual, avg(ride_length_mins) as avg_trip_duration_in_mins
 from `tripdata_2022.cleaned_tripdata_2022`
 group by rideable_type, member_casual
-order by avg_trip_duration_in_mins desc;
-
--- Average trip duration based on the membership type
-
-select member_casual, avg(ride_length_mins) as avg_trip_duration_in_mins
-from `tripdata_2022.cleaned_tripdata_2022`
-group by member_casual
 order by avg_trip_duration_in_mins desc;
 
 -- Average trip duration based on the days of the week and their respective membership type
@@ -162,3 +162,36 @@ from `tripdata_2022.cleaned_tripdata_2022`
 group by start_station_name, end_station_name
 order by no_of_trips desc
 limit 10;
+
+-- Peak Hours, Weekdays and Months
+
+select extract(hour from started_at) as hour, count(*) as no_of_trips
+from `tripdata_2022.cleaned_tripdata_2022`
+group by hour
+order by no_of_trips desc
+limit 12;
+
+select weekday, count(*) as no_of_trips
+from `tripdata_2022.cleaned_tripdata_2022`
+group by weekday
+order by no_of_trips desc;
+
+select month, count(*) as no_of_trips
+from `tripdata_2022.cleaned_tripdata_2022`
+group by month
+order by no_of_trips desc
+limit 6;
+
+-- No. of trips based on seasons of the year
+
+select month,
+  case
+    when month in ("December","January","February") then 'Winter'
+    when month in ("March","April","May") then 'Spring'
+    when month in ("June","July","August") then 'Summer'
+    when month in ("September","October","November") then 'Autumn'
+  end as season,
+  count(*) as no_of_trips
+from `tripdata_2022.cleaned_tripdata_2022`
+group by month, season
+order by no_of_trips desc;
