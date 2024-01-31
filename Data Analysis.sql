@@ -10,7 +10,7 @@ from `tripdata_2022.cleaned_tripdata_2022`
 group  by rideable_type, member_casual
 order by no_of_trips desc;
 
--- Count of trips based on the days of a week and their respective membership type
+-- Count of trips based on the days of the week and their respective membership type
 
 select weekday, count(*) as no_of_trips
 from `tripdata_2022.cleaned_tripdata_2022`
@@ -41,7 +41,7 @@ from `tripdata_2022.cleaned_tripdata_2022`
 group  by member_casual
 order by no_of_trips desc;
 
--- Count of trips based on hour of the day and their respective membership type
+-- Count of trips based on the hour of the day and their respective membership type
 
 select extract(hour from started_at) as hour_of_day, count(*) as no_of_trips
 from `tripdata_2022.cleaned_tripdata_2022`
@@ -72,7 +72,7 @@ from `tripdata_2022.cleaned_tripdata_2022`
 group by member_casual
 order by avg_trip_duration_in_mins desc;
 
--- Average trip duration based on the days of a week and their respective membership type
+-- Average trip duration based on the days of the week and their respective membership type
 
 select weekday, avg(ride_length_mins) as avg_trip_duration_in_mins
 from `tripdata_2022.cleaned_tripdata_2022`
