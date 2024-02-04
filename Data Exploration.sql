@@ -21,7 +21,7 @@ select count(*) - count(ride_id) as ride_id,
  count(*) - count(member_casual) as member_casual
 from `tripdata_2022.tripdata_2022`;
 
--- Checking the count of duplicate values (if any)in the table
+-- Checking the count of duplicate values (if any) in the table
 
 select count(ride_id) - count(distinct ride_id) as no_of_duplicates
 from `tripdata_2022.tripdata_2022`;
